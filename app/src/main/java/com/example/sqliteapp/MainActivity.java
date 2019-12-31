@@ -16,9 +16,11 @@ import java.lang.StringBuffer;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Databasehelper databasehelper;
     public EditText nameEditText,ageEditText,genderEditText;
+    public EditText idEditText;
     public TextView TextView3,TextView4,TextView5;
+    public TextView TextView7;
     public Button addbtn,showbtn;
-
+    public Button updatebtn,deletebtn;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -27,24 +29,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nameEditText=findViewById(R.id.nameEditText);
 
         ageEditText=findViewById(R.id.ageEditText);
+        idEditText=findViewById(R.id.idEditText);
         genderEditText=findViewById(R.id.genderEditText);
 
         TextView3=findViewById(R.id.textView3);
         TextView4=findViewById(R.id.textView4);
         TextView5=findViewById(R.id.textView5);
+        TextView7=findViewById(R.id.textView7);
         addbtn=findViewById(R.id.addbtn);
         addbtn.setOnClickListener(this);
         showbtn=findViewById(R.id.showbtn);
         showbtn.setOnClickListener(this);
-
-
-
+        updatebtn=findViewById(R.id.updatebtn);
+        updatebtn.setOnClickListener(this);
+        deletebtn=findViewById(R.id.deletebtn);
+        deletebtn.setOnClickListener(this);
 
     }
     public void onClick(View view)
     {
         String name= nameEditText.getText().toString();
-
+        String id= idEditText.getText().toString();
         String age= ageEditText.getText().toString();
         String gender= genderEditText.getText().toString();
         if(view.getId()==R.id.addbtn)
@@ -77,6 +82,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 stringbuffer.append("GENDER:"+cursor.getString(3)+"\n") ;
             }
             showData("Resultset",stringbuffer.toString());
+        }
+        if(view.getId()==R.id.updatebtn)
+        {
+
+            Boolean isUpdated=databasehelper.updateData(id,name,age,gender);
+            if(isUpdated==true)
+            {
+                Toast.makeText(getApplicationContext(),"row is updated",Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"row is  not updated",Toast.LENGTH_LONG).show();
+            }
+        }
+        if(view.getId()==R.id.deletebtn)
+        {
+
+            int value=databasehelper.deleteData(id);
+            if(value>0)
+            {
+                Toast.makeText(getApplicationContext(),"row is deleted",Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"row is  not deleted",Toast.LENGTH_LONG).show();
+            }
         }
 
 

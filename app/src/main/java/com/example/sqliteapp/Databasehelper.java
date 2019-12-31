@@ -12,6 +12,7 @@ public class Databasehelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "Student_detils";
     private static final String ID = "_id";
     private static final String NAME = "Name";
+
     private static final String AGE = "age";
     private static final String GENDER = "gender";
 
@@ -63,5 +64,21 @@ public class Databasehelper extends SQLiteOpenHelper {
 
         return cursor1;
     }
+    public boolean updateData(String id,String name, String age, String gender)
+    {  SQLiteDatabase  sqLiteDatabase= this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID,id);
+        contentValues.put(NAME,name);
+        contentValues.put(AGE,age);
+        contentValues.put(GENDER,gender);
+        sqLiteDatabase.update(TABLE_NAME,contentValues,ID+"=?",new String []{id});
+        return true;
+
+    }
+     public Integer deleteData(String id)
+    {SQLiteDatabase  sqLiteDatabase= this.getWritableDatabase();
+       return sqLiteDatabase.delete(TABLE_NAME,ID+"=?",new String[]{id})  ;
+    }
+
 }
 

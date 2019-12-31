@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Sqliteapp</string>
     <string name="showbtn">SHOW DATA</string>
+    <string name="updatebtn">UPDATE DATA</string>
+    <string name="deletebtn">DELETE DATA</string>
     <string name="addbtn">ADD DATA</string>
     <string name="textView3">NAME</string>
     <string name="textView4">AGE</string>
